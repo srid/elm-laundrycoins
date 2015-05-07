@@ -1,1 +1,1 @@
-This is a simple Elm program to calculate the exact coin change for doing laundry. It was written in the process of learning Elm.
+This is a simple Elm program to calculate the exact coin change for doing laundry (ported from the original [Haskell program](https://gist.github.com/srid/dca5ee92bcab1d6cefae)). It was written in the process of learning Elm.
