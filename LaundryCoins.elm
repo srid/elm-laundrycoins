@@ -1,5 +1,6 @@
 import Graphics.Element exposing (..)
 import List exposing (concat, repeat, append, foldr, map, filter, length) 
+import Html exposing (Html, div, text)
 
 type Coin
     = Quarter 
@@ -29,15 +30,20 @@ loonies = filter ((==) Loonie) >> length
 quarters : List Coin -> Int
 quarters = filter ((==) Quarter) >> length          
 
-showCoinsNeeded : Int -> String                
+showCoinsNeeded : Int -> Html                
 showCoinsNeeded n = let cost = nDaysCost n
                         l = loonies cost
                         q = quarters cost
                         t = (sumCost cost) // 100 -- OK to discard remainder as our cost rounds to dollars
                     in
-                        "To do laundry " ++ toString n ++ " times, ask the cashier for:\n" ++ toString l ++ " loonies,\n" ++ toString q ++ " quarters, from\n$" ++ toString t ++ " cash back"
+                      div []
+                           [ div [] [ text <| "To do laundry " ++ toString n ++ " times, ask the cashier for:" ]
+                           , div [] [ text <| toString l ++ " loonies," ]
+                           , div [] [ text <| toString q ++ " quarters, from" ]
+                           , div [] [ text <| "$" ++ toString t ++ " cash back" ]
+                           ]
       
 
-main : Element
+main : Html
 main =
-  showCoinsNeeded 4 |> show
+  showCoinsNeeded 4
