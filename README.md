@@ -3,10 +3,11 @@ This is a simple Elm program to calculate the exact coin change for doing laundr
 # Local development
 
 
-First install the pre-requisitives:
+First install the prerequisites:
 
 ```
-open https://toolbelt.heroku.com/
+open http://boot2docker.io
+open https://toolbelt.heroku.com
 heroku plugins:install heroku-docker
 ```
 
@@ -18,7 +19,7 @@ make
 
 # Heroku deployment
 
-Deploy is made easier using the [Heroku client's docker support](https://blog.heroku.com/archives/2015/5/5/introducing_heroku_docker_release_build_deploy_heroku_apps_with_docker).
+Deployment is made easier using [Heroku's client-side docker plugin](https://blog.heroku.com/archives/2015/5/5/introducing_heroku_docker_release_build_deploy_heroku_apps_with_docker).
 ```
 make deploy
 ```
