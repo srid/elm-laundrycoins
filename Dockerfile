@@ -16,17 +16,9 @@ RUN ${CABAL_INSTALL} elm-compiler-0.15 elm-package-0.5 elm-make-0.1.2 && \
 RUN ${CABAL_INSTALL} wai-app-static
 ENV PATH /root/.cabal/bin:$PATH
 
-# RUN useradd -d /app -m app
-# USER app
 WORKDIR /app
-# ENV HOME /app
 
 ENV PORT 3000
-
-# RUN mkdir -p /app/heroku/
-# RUN mkdir -p /app/src
-# RUN curl -s https://s3pository.heroku.com/node/v$NODE_ENGINE/node-v$NODE_ENGINE-linux-x64.tar.gz | tar --strip-components=1 -xz -C /app/heroku/node
-# ENV PATH /app/heroku/node/bin:$PATH
 
 RUN mkdir -p /app/.profile.d
 RUN echo "export PATH=\"/app/bin:\$PATH\"" > /app/.profile.d/warp.sh
@@ -35,5 +27,8 @@ RUN echo "cd /app" >> /app/.profile.d/warp.sh
 EXPOSE 3000
 
 ONBUILD RUN mkdir /app/bin && cp $(which warp) /app/bin
+ONBUILD ADD elm-package.json /app/
+ONBUILD RUN elm-package install --yes
 ONBUILD COPY . /app
 ONBUILD RUN elm-make *.elm
+ONBUILD RUN rm -rf .git elm-stuff
