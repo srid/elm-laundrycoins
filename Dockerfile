@@ -31,7 +31,7 @@ ONBUILD ADD elm-package.json /app/src/
 ONBUILD WORKDIR /app/src
 ONBUILD RUN elm-package install --yes
 ONBUILD COPY . /app/src
-ONBUILD RUN elm-make *.elm --output=index.html
+ONBUILD RUN elm make *.elm --output=index.html
 ONBUILD RUN cp index.html /app
 ONBUILD WORKDIR /app
 ONBUILD RUN rm -rf /app/src
