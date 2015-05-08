@@ -1,1 +1,1 @@
-web: python -m SimpleHTTPServer 3000
+web: python -m SimpleHTTPServer $PORT

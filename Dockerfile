@@ -29,9 +29,8 @@ ENV PORT 3000
 # RUN mkdir -p /app/.profile.d
 # RUN echo "export PATH=\"/app/heroku/node/bin:/app/bin:/app/src/node_modules/.bin:\$PATH\"" > /app/.profile.d/nodejs.sh
 # RUN echo "cd /app/src" >> /app/.profile.d/nodejs.sh
-WORKDIR /app/src
 
 EXPOSE 3000
 
-ONBUILD COPY . /app/src
+ONBUILD COPY . /app
 ONBUILD RUN elm-make *.elm
