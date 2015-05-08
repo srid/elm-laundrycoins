@@ -1,1 +1,1 @@
-web: warp -p $PORT
+web: warp -p ${PORT:-3000}
