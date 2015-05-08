@@ -16,8 +16,6 @@ RUN ${CABAL_INSTALL} elm-compiler-0.15 elm-package-0.5 elm-make-0.1.2 && \
 RUN ${CABAL_INSTALL} wai-app-static
 ENV PATH /root/.cabal/bin:$PATH
 
-WORKDIR /app
-
 ENV PORT 3000
 
 RUN mkdir -p /app/.profile.d
@@ -26,9 +24,14 @@ RUN echo "cd /app" >> /app/.profile.d/warp.sh
 
 EXPOSE 3000
 
+# Build the Elm project; copy generated and static files to /app; get rid of
+# /app/src to save on slug size.
 ONBUILD RUN mkdir /app/bin && cp $(which warp) /app/bin
-ONBUILD ADD elm-package.json /app/
+ONBUILD ADD elm-package.json /app/src/
+ONBUILD WORKDIR /app/src
 ONBUILD RUN elm-package install --yes
-ONBUILD COPY . /app
+ONBUILD COPY . /app/src
 ONBUILD RUN elm-make *.elm
-ONBUILD RUN rm -rf .git elm-stuff
+ONBUILD RUN cp *.js *.html /app
+ONBUILD WORKDIR /app
+ONBUILD RUN rm -rf /app/src
