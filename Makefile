@@ -1,2 +1,5 @@
 all:
-	elm-make *.elm
+	heroku docker:start
+
+deploy:
+	heroku docker:release
